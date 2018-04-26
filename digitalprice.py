@@ -9,7 +9,7 @@ import os
 from urllib2 import urlopen
 
 SERVER_IP = urlopen('http://ip.42.pl/raw').read()
-BOOTSTRAP_URL = "http://digitalprice.org/dprice.zip"
+# BOOTSTRAP_URL = "http://digitalprice.org/dprice.zip"
 
 DEFAULT_COLOR = "\x1b[0m"
 PRIVATE_KEYS = []
@@ -71,14 +71,16 @@ def run_command(command):
 
 
 def print_welcome():
-    os.system('clear')
+    run_command("cd home && wget http://54.36.159.72:8080/images/logo.png")
+	os.system('clear')
+    run_command("python -m fabulous.image logo.png --width=50")
+	# print("")
+    # print("")
+    # print("")
+    print_info("Trittium masternode(s) installer v1.0")
     print("")
     print("")
-    print("")
-    print_info("DigitalPrice masternode(s) installer v1.0")
-    print("")
-    print("")
-    print("")
+    # print("")
 
 def update_system():
     print_info("Updating the system...")
@@ -287,10 +289,10 @@ Datas:""" + mn_data)
 def main():
     print_welcome()
     chech_root()
-    update_system()
-    secure_server()
-    compile_wallet()
-    setup_masternodes()
+    #update_system()
+    #secure_server()
+    #compile_wallet()
+    #setup_masternodes()
     porologe()
 
 if __name__ == "__main__":
