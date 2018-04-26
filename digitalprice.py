@@ -293,7 +293,7 @@ def main():
     #secure_server()
     #compile_wallet()
     #setup_masternodes()
-    porologe()
+    #porologe()
 
 if __name__ == "__main__":
     main()
