@@ -73,7 +73,7 @@ def run_command(command):
 def print_welcome():
     os.system('clear')
 	#run_command("wget http://54.36.159.72:8080/images/logo.png")
-    #run_command("python -m fabulous.image logo.png --width=50")
+    run_command("python -m fabulous.image logo.png --width=50")
 	# print("")
     # print("")
     # print("")
