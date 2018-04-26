@@ -288,7 +288,7 @@ Datas:""" + mn_data)
 
 def main():
     print_welcome()
-    chech_root()
+    #chech_root()
     #update_system()
     #secure_server()
     #compile_wallet()
