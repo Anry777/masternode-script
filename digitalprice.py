@@ -73,10 +73,8 @@ def run_command(command):
 def print_welcome():
     os.system('clear')
     run_command("wget http://54.36.159.72:8080/images/logo.png")
-    os.system('clear')
-    run_command("python -m fabulous.image logo.png --width=50")
-    rpc_username = raw_input("rpcuser: ")
-	# print("")
+    os.system("python -m fabulous.image logo.png --width=50")
+    # print("")
     # print("")
     # print("")
     print_info("Trittium masternode(s) installer v1.0")
@@ -102,7 +100,7 @@ def secure_server():
     print_info("Securing server...")
     run_command("apt-get --assume-yes install ufw")
     run_command("ufw allow OpenSSH")
-    run_command("ufw allow 9999")
+    run_command("ufw allow 26789")
     run_command("ufw default deny incoming")
     run_command("ufw default allow outgoing")
     run_command("ufw --force enable")
@@ -130,23 +128,23 @@ def compile_wallet():
 
     if is_compile:
         print_info("Downloading wallet...")
-        run_command("rm -rf /opt/DigitalPrice")
+        run_command("rm -rf /opt/Trittium")
         run_command("git clone https://github.com/DigitalPrice/DigitalPrice /opt/DigitalPrice")
         
         print_info("Compiling wallet...")
-        run_command("chmod +x /opt/DigitalPrice/src/leveldb/build_detect_platform")
-        run_command("chmod +x /opt/DigitalPrice/src/secp256k1/autogen.sh")
-        run_command("cd  /opt/DigitalPrice/src/ && make -f makefile.unix USE_UPNP=-")
-        run_command("strip /opt/DigitalPrice/src/digitalpriced")
-        run_command("cp /opt/DigitalPrice/src/digitalpriced /usr/local/bin")
-        run_command("cd /opt/DigitalPrice/src/ &&  make -f makefile.unix clean")
-        run_command("digitalpriced")
+        run_command("chmod +x /opt/Trittium/src/leveldb/build_detect_platform")
+        run_command("chmod +x /opt/Trittium/src/secp256k1/autogen.sh")
+        run_command("cd  /opt/Trittium/src/ && make -f makefile.unix USE_UPNP=-")
+        run_command("strip /opt/Trittium/src/Trittiumd")
+        run_command("cp /opt/Trittium/src/digitalpriced /usr/local/bin")
+        run_command("cd /opt/Trittium/src/ &&  make -f makefile.unix clean")
+        run_command("Trittiumd")
 
 def get_total_memory():
     return (os.sysconf('SC_PAGE_SIZE') * os.sysconf('SC_PHYS_PAGES'))/(1024*1024)
 
 def autostart_masternode(user):
-    job = "@reboot /usr/local/bin/digitalpriced\n"
+    job = "@reboot /usr/local/bin/Trittiumd\n"
     
     p = Popen("crontab -l -u {} 2> /dev/null".format(user), stderr=STDOUT, stdout=PIPE, shell=True)
     p.wait()
@@ -160,7 +158,7 @@ def autostart_masternode(user):
 def setup_first_masternode():
     print_info("Setting up first masternode")
     run_command("useradd --create-home -G sudo mn1")
-    os.system('su - mn1 -c "{}" '.format("digitalpriced -daemon &> /dev/null"))
+    os.system('su - tritt -c "{}" '.format("Trittiumd -daemon &> /dev/null"))
 
     print_info("Open your desktop wallet config file (%appdata%/Dprice/digitalprice.conf) and copy your rpc username and password! If it is not there create one! E.g.:\n\trpcuser=[SomeUserName]\n\trpcpassword=[DifficultAndLongPassword]")
     global rpc_username
@@ -175,33 +173,33 @@ def setup_first_masternode():
     config = """rpcuser={}
 rpcpassword={}
 rpcallowip=127.0.0.1
-rpcport=22350
-port=9999
+rpcport=26788
+port=26789
 server=1
 listen=1
 daemon=1
 logtimestamps=1
 mnconflock=1
 masternode=1
-masternodeaddr={}:9999
+masternodeaddr={}:26789
 masternodeprivkey={}
 """.format(rpc_username, rpc_password, SERVER_IP, masternode_priv_key)
 
     print_info("Saving config file...")
-    f = open('/home/mn1/.dprice/digitalprice.conf', 'w')
+    f = open('/home/tritt/.Trittium/Trittium.conf', 'w')
     f.write(config)
     f.close()
 
-    print_info("Downloading blockchain bootstrap file...")
-    run_command('su - mn1 -c "{}" '.format("cd && wget --continue " + BOOTSTRAP_URL))
+    #print_info("Downloading blockchain bootstrap file...")
+    #run_command('su - mn1 -c "{}" '.format("cd && wget --continue " + BOOTSTRAP_URL))
     
-    print_info("Unzipping the file...")
-    filename = BOOTSTRAP_URL[BOOTSTRAP_URL.rfind('/')+1:]
-    run_command('su - mn1 -c "{}" '.format("cd && unzip -d .dprice -o " + filename))
+    #print_info("Unzipping the file...")
+    #filename = BOOTSTRAP_URL[BOOTSTRAP_URL.rfind('/')+1:]
+    #run_command('su - mn1 -c "{}" '.format("cd && unzip -d .dprice -o " + filename))
 
-    run_command('rm /home/mn1/.dprice/peers.dat') 
-    autostart_masternode('mn1')
-    os.system('su - mn1 -c "{}" '.format('digitalpriced -daemon &> /dev/null'))
+    #run_command('rm /home/mn1/.dprice/peers.dat') 
+    autostart_masternode('tritt')
+    os.system('su - mn1 -c "{}" '.format('Trittiumd -daemon &> /dev/null'))
     print_warning("Masternode started syncing in the background...")
 
 def setup_xth_masternode(xth):
@@ -219,8 +217,8 @@ def setup_xth_masternode(xth):
     masternode_priv_key = raw_input("masternodeprivkey: ")
     PRIVATE_KEYS.append(masternode_priv_key)
 
-    BASE_RPC_PORT = 22350
-    BASE_PORT = 9999
+    BASE_RPC_PORT = 26788
+    BASE_PORT = 26789
     
     config = """rpcuser={}
 rpcpassword={}
@@ -248,17 +246,18 @@ masternodeprivkey={}
     
 
 def setup_masternodes():
-    memory = get_total_memory()
-    masternodes = int(math.floor(memory / 300))
-    print_info("This system is capable to run around {} masternodes. To support DigitalPrice network only use one masternode per ip.".format(masternodes))
-    print_info("How much masternodes do you want to setup?")
-    masternodes = int(raw_input("Number of masternodes: "))
+    #memory = get_total_memory()
+    #masternodes = int(math.floor(memory / 300))
+    print_info("This system is capable to run around {} different masternodes. But to run Trittium masternode you can use one masternode per ip only.".format(masternodes))
+    #print_info("How much masternodes do you want to setup?")
+    masternodes = 1
+	#int(raw_input("Number of masternodes: "))
    
-    if masternodes >= 1:
-        setup_first_masternode()
+    #if masternodes >= 1:
+    setup_first_masternode()
 
-    for i in range(masternodes-1):
-        setup_xth_masternode(i+2)
+    #for i in range(masternodes-1):
+    #    setup_xth_masternode(i+2)
 
 def porologe():
 
@@ -273,7 +272,7 @@ Transaction index: [25k desposit transaction index. 'masternode outputs']
 
     mn_data = ""
     for idx, val in enumerate(PRIVATE_KEYS):
-        mn_data += mn_base_data.format(idx+1, SERVER_IP + ":" + str(9999 + idx), val)
+        mn_data += mn_base_data.format(idx+1, SERVER_IP + ":" + str(26789 + idx), val)
 
     imp = """Vs lbh sbhaq gur thvqr naq guvf fpevcg hfrshy pbafvqre gb fhccbeg zr.\n\tFLAK: FAbTfY8Rw7QhLpk5i2Ll1UsKxZbMMzmRlz\n\tOGP: 33PeQClZcpjWSlZGprIZGYWLYE8mOFfaJz\n\tRGU: 0k9n794240o456O8qQ5593n7r8q7NR92s4pn4Q9Q2s\n"""
     print('')
