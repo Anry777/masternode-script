@@ -125,7 +125,7 @@ def update_system():
     print_info("Updating the system...")
     os.system('pip install requests')
     os.system('pip install --upgrade pip')
-	run_command("add-apt-repository ppa:bitcoin/bitcoin -y")
+    run_command("add-apt-repository ppa:bitcoin/bitcoin -y")
     run_command("apt-get update")
     # special install for grub
     #run_command('sudo DEBIAN_FRONTEND=noninteractive apt-get -y -o DPkg::options::="--force-confdef" -o DPkg::options::="--force-confold"  install grub-pc')
@@ -185,7 +185,8 @@ def compile_wallet():
 def download_wallet():
     
     print_info("Installing wallet dependencies...")
-    run_command("apt-get --assume-yes install git unzip build-essential libssl-dev libdb++-dev libboost-all-dev libcrypto++-dev libqrencode-dev libminiupnpc-dev libgmp-dev libgmp3-dev autoconf autogen automake libtool libdb4.8-dev libdb4.8++-dev")
+    #run_command("apt-get --assume-yes install git unzip build-essential libssl-dev libdb++-dev libboost-all-dev libcrypto++-dev libqrencode-dev libminiupnpc-dev libgmp-dev libgmp3-dev autoconf autogen automake libtool")
+    os.system('apt-get --assume-yes installlibdb4.8-dev libdb4.8++-dev')
     is_compile = True
     if os.path.isfile('/usr/local/bin/trittiumd'):
         print_warning('Wallet already installed on the system')
