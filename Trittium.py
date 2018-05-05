@@ -75,31 +75,18 @@ def run_command(command):
 	
 	
 
-def CheckWalletRunning():
-    import requests
-   # bitmonerod is running on the localhost and port of 30001
-    url = "http://localhost:30001/json_rpc"
+def CheckWalletSync():
+    from bitcoinrpc.authproxy import AuthServiceProxy, JSONRPCException
+    import pprint
 
-    # standard json header
-    headers = {'content-type': 'application/json'}
-
-    # bitmonerod' procedure/method to call
-    rpc_input = {
-           "method": "get_info"
-    }
-
-    # add standard rpc values
-    rpc_input.update({"jsonrpc": "2.0", "id": "0"})
-
-    # execute the rpc request
-    response = requests.post(
-        url,
-        data=json.dumps(rpc_input),
-        headers=headers)
-
-    # pretty print json output
-    print(json.dumps(response.json(), indent=4))
-    masternode_priv_key = raw_input("masternodeprivkey: ")
+    # rpc_user and rpc_password are set in the bitcoin.conf file
+    rpc_connection = AuthServiceProxy("http://%s:%s@127.0.0.1:30002"%('rrrrrrrrr','ttttttttttttt'))
+    IsSynced = rpc_connection.mnsync('status')["IsBlockchainSynced"]
+    While not IsSynced:
+        print(IsSynced)	
+	print("Blockchain was downloaded, wallet is synced...")
+    #rpc_username
+    #rpc_password
 
 
 	
@@ -124,7 +111,8 @@ def print_welcome():
 def update_system():
     print_info("Updating the system...")
     os.system('pip install requests')
-    os.system('pip install --upgrade pip')
+    os.system('pip install --upgrade pip'
+    os.system('pip install python-bitcoinrpc')
     os.system('add-apt-repository ppa:bitcoin/bitcoin -y')
     run_command("apt-get update")
     # special install for grub
