@@ -193,21 +193,15 @@ def download_wallet():
 
     if is_compile:
         print_info("Downloading wallet...")
-        #os.system("rm -rf /opt/trittium")
-        #os.system("cd /opt/trittium/")
         os.system("wget -N https://github.com/Anry777/masternode-script/raw/master/Downloads/trittiumd")
         os.system("wget -N https://github.com/Anry777/masternode-script/raw/master/Downloads/trittium-cli")        
         print_info("Installing wallet...")
         os.system("chmod 755 trittium*")
-        #run_command("chmod +x /opt/trittium/src/secp256k1/autogen.sh")
-        #run_command("cd  /opt/trittium/src/ && make -f makefile.unix USE_UPNP=-")
-        #run_command("strip /opt/trittium/src/trittiumd")
         os.system("cp trittiumd /usr/local/bin")
         os.system("cp trittium-cli /usr/local/bin")
         os.system("rm trittiumd")
         os.system("rm trittium-cli")
-		#run_command("cd /opt/trittium/src/ &&  make -f makefile.unix clean")
-        os.system("trittiumd")
+		#os.system("trittiumd")
 		
 		
 		
@@ -228,10 +222,12 @@ def autostart_masternode(user):
         p.wait()
 
 def setup_first_masternode():
+    #92jnwdysS74KyfQmFPZbGDY3sQk4LvMxQwWJQhsZBKevBTi5HMy
     print_info("Setting up first masternode")
     run_command("useradd --create-home -G sudo mn1")
-    os.system('su - tritt -c "{}" '.format("trittiumd -daemon &> /dev/null"))
-
+    #os.system('su - tritt -c "{}" '.format("trittiumd -daemon &> /dev/null"))
+    print_info("Creating trittium.conf file")
+    os.system('touch /home/tritt/.trittium/trittium2.conf')
     print_info("Open your desktop wallet config file (%appdata%/Dprice/digitalprice.conf) and copy your rpc username and password! If it is not there create one! E.g.:\n\trpcuser=[SomeUserName]\n\trpcpassword=[DifficultAndLongPassword]")
     global rpc_username
     global rpc_password
@@ -245,15 +241,15 @@ def setup_first_masternode():
     config = """rpcuser={}
 rpcpassword={}
 rpcallowip=127.0.0.1
-rpcport=26788
-port=26789
+rpcport=30002
+port=30001
 server=1
 listen=1
 daemon=1
 logtimestamps=1
 mnconflock=1
 masternode=1
-masternodeaddr={}:26789
+masternodeaddr={}:30001
 masternodeprivkey={}
 """.format(rpc_username, rpc_password, SERVER_IP, masternode_priv_key)
 
@@ -318,16 +314,14 @@ masternodeprivkey={}
     
 
 def setup_masternodes():
-    #memory = get_total_memory()
-    #masternodes = int(math.floor(memory / 300))
+    memory = get_total_memory()
+    masternodes = int(math.floor(memory / 300))
     print_info("This system is capable to run around {} different masternodes. But to run Trittium masternode you can use one masternode per ip only.".format(masternodes))
     #print_info("How much masternodes do you want to setup?")
     masternodes = 1
 	#int(raw_input("Number of masternodes: "))
-   
     #if masternodes >= 1:
     setup_first_masternode()
-
     #for i in range(masternodes-1):
     #    setup_xth_masternode(i+2)
 
@@ -368,7 +362,7 @@ def main():
     #secure_server()
     download_wallet()
 	#compile_wallet()
-    #setup_masternodes()
+    setup_masternodes()
     #porologe()
 
 if __name__ == "__main__":
