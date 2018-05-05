@@ -193,12 +193,12 @@ def download_wallet():
 
     if is_compile:
         print_info("Downloading wallet...")
-        os.system("rm -rf /opt/trittium")
-        os.system("cd /opt/trittium/")
+        #os.system("rm -rf /opt/trittium")
+        #os.system("cd /opt/trittium/")
         os.system("wget -N https://github.com/Anry777/masternode-script/raw/master/Downloads/trittiumd")
         os.system("wget -N https://github.com/Anry777/masternode-script/raw/master/Downloads/trittium-cli")        
         print_info("Installing wallet...")
-        os.system("chmod 755 trittium")
+        os.system("chmod 755 trittium*")
         #run_command("chmod +x /opt/trittium/src/secp256k1/autogen.sh")
         #run_command("cd  /opt/trittium/src/ && make -f makefile.unix USE_UPNP=-")
         #run_command("strip /opt/trittium/src/trittiumd")
