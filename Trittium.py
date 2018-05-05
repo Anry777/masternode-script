@@ -118,41 +118,7 @@ def secure_server():
     run_command("ufw default allow outgoing")
     run_command("ufw --force enable")
 
-def compile_wallet():
-    print_info("Allocating swap...")
-    run_command("fallocate -l 3G /swapfile")
-    run_command("chmod 600 /swapfile")
-    run_command("mkswap /swapfile")
-    run_command("swapon /swapfile")
-    f = open('/etc/fstab','r+b')
-    line = '/swapfile   none    swap    sw    0   0 \n'
-    lines = f.readlines()
-    if (lines[-1] != line):
-        f.write(line)
-        f.close()
-
-    print_info("Installing wallet dependencies...")
-    run_command("apt-get --assume-yes install git unzip build-essential libssl-dev libdb++-dev libboost-all-dev libcrypto++-dev libqrencode-dev libminiupnpc-dev libgmp-dev libgmp3-dev autoconf autogen automake libtool")
-
-    is_compile = True
-    if os.path.isfile('/usr/local/bin/trittiumd'):
-        print_warning('Wallet already installed on the system')
-        is_compile = False
-
-    if is_compile:
-        print_info("Downloading wallet...")
-        run_command("rm -rf /opt/trittium")
-        run_command("git clone https://github.com/trittium/trittium /opt/trittium")
-        
-        print_info("Compiling wallet...")
-        run_command("chmod +x /opt/trittium/src/leveldb/build_detect_platform")
-        run_command("chmod +x /opt/trittium/src/secp256k1/autogen.sh")
-        run_command("cd  /opt/trittium/src/ && make -f makefile.unix USE_UPNP=-")
-        run_command("strip /opt/trittium/src/trittiumd")
-        run_command("cp /opt/trittium/src/trittiumd /usr/local/bin")
-        run_command("cd /opt/trittium/src/ &&  make -f makefile.unix clean")
-        run_command("trittiumd")
-		
+	
 def download_wallet():
     
     print_info("Installing wallet dependencies...")
