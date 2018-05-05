@@ -121,7 +121,7 @@ def update_system():
     #run_command('sudo DEBIAN_FRONTEND=noninteractive apt-get -y -o DPkg::options::="--force-confdef" -o DPkg::options::="--force-confold"  install grub-pc')
     run_command("apt-get upgrade -y")
     
-def chech_root():
+def check_root():
     print_info("Check root privileges")
     user = os.getuid()
     if user != 0:
@@ -263,7 +263,7 @@ masternodeprivkey={}
     os.system('su - tritt -c trittiumd')
 	#os.system('su - tritt -c "{}" '.format("trittiumd -daemon &> /dev/null"))
     #os.system('trittiumd -daemon &> /dev/null')
-    print_warning("Masternode started syncing in the background...")
+    print_warning("Masternode started syncing...")
 
 def setup_xth_masternode(xth):
     print_info("Setting up {}th masternode".format(xth))
@@ -335,19 +335,19 @@ Transaction index: [25k desposit transaction index. 'masternode outputs']
     for idx, val in enumerate(PRIVATE_KEYS):
         mn_data += mn_base_data.format(idx+1, SERVER_IP + ":" + str(26789 + idx), val)
 
-    imp = """Vs lbh sbhaq gur thvqr naq guvf fpevcg hfrshy pbafvqre gb fhccbeg zr.\n\tFLAK: FAbTfY8Rw7QhLpk5i2Ll1UsKxZbMMzmRlz\n\tOGP: 33PeQClZcpjWSlZGprIZGYWLYE8mOFfaJz\n\tRGU: 0k9n794240o456O8qQ5593n7r8q7NR92s4pn4Q9Q2s\n"""
+    
     print('')
     print_info(
 """Masternodes setup finished!
 \t Add your masternodes to your desktop wallet.
-Datas:""" + mn_data)
+You MN Data:""" + mn_data)
 
-    print_warning(imp.decode('rot13').decode('unicode-escape'))
+    
 
 def main():
     
-	print_welcome()
-    chech_root()
+    print_welcome()
+    check_root()
     update_system()
     secure_server()
     download_wallet()
