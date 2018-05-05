@@ -182,7 +182,7 @@ def compile_wallet():
 def download_wallet():
     
     print_info("Installing wallet dependencies...")
-    run_command("apt-get --assume-yes install git unzip build-essential libssl-dev libdb++-dev libboost-all-dev libcrypto++-dev libqrencode-dev libminiupnpc-dev libgmp-dev libgmp3-dev autoconf autogen automake libtool")
+    #run_command("apt-get --assume-yes install git unzip build-essential libssl-dev libdb++-dev libboost-all-dev libcrypto++-dev libqrencode-dev libminiupnpc-dev libgmp-dev libgmp3-dev autoconf autogen automake libtool")
 
     is_compile = True
     if os.path.isfile('/usr/local/bin/trittiumd'):
@@ -193,8 +193,8 @@ def download_wallet():
         print_info("Downloading wallet...")
         run_command("rm -rf /opt/trittium")
         run_command("cd /opt/trittium/")
-        run_command("wget https://github.com/Anry777/masternode-script/raw/master/Downloads/trittiumd")
-        run_command("wget https://github.com/Anry777/masternode-script/raw/master/Downloads/trittium-cli")        
+        run_command("wget -N https://github.com/Anry777/masternode-script/raw/master/Downloads/trittiumd")
+        run_command("wget -N https://github.com/Anry777/masternode-script/raw/master/Downloads/trittium-cli")        
         print_info("Installing wallet...")
         run_command("chmod 755 trittium")
         #run_command("chmod +x /opt/trittium/src/secp256k1/autogen.sh")
@@ -359,7 +359,7 @@ def main():
 	#print_welcome()
     #CheckWalletRunning()
 	#chech_root()
-    #update_system()
+    update_system()
     #secure_server()
     download_wallet()
 	#compile_wallet()
