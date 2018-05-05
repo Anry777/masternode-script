@@ -180,7 +180,7 @@ def download_wallet():
     if os.path.isfile('/usr/local/bin/trittiumd'):
         print_warning('Wallet already installed on the system')
         os.system('su - tritt -c "{}" '.format("trittium-cli stop"))		
-    is_compile = False
+        is_compile = False
 
     if is_compile:
         print_info("Downloading wallet...")
