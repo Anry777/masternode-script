@@ -81,9 +81,6 @@ def run_command(command):
 
 def check_wallet_sync():
     rpc_connection = AuthServiceProxy("http://%s:%s@127.0.0.1:30002"%(rpc_username, rpc_password))
-    TestConnect = rpc_connection.getinfo()
-    #["Code"]
-    print_warning(TestConnect)
     IsSynced = rpc_connection.mnsync('status')["IsBlockchainSynced"]
     while not IsSynced:
         IsSynced = rpc_connection.mnsync('status')["IsBlockchainSynced"]
@@ -322,7 +319,14 @@ def setup_masternodes():
     setup_first_masternode()
     #for i in range(masternodes-1):
     #    setup_xth_masternode(i+2)
-
+    i = 0
+    while i < 15:
+       print(ii)
+       time.sleep(1)
+       print_error("Waiting for wallet download {} sec.".format(ii)
+       ii = ii + 1
+	   
+	
 def porologe():
 
     mn_base_data = """
@@ -350,14 +354,14 @@ You MN Data:""" + mn_data)
 def main():
     
     #print_welcome()
-    #check_root()
-    #update_system()
-    #secure_server()
-    #download_wallet()
-	#compile_wallet()
-    #setup_masternodes()
+    check_root()
+    update_system()
+    secure_server()
+    download_wallet()
+#compile_wallet()
+    setup_masternodes()
     check_wallet_sync()
-    #porologe()
+    porologe()
 
 if __name__ == "__main__":
     main()
