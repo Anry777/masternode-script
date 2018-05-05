@@ -192,16 +192,17 @@ def download_wallet():
     if is_compile:
         print_info("Downloading wallet...")
         run_command("rm -rf /opt/trittium")
-        run_command("git clone https://github.com/trittium/trittium /opt/trittium")
-        
-        print_info("Compiling wallet...")
-        run_command("chmod +x /opt/trittium/src/leveldb/build_detect_platform")
-        run_command("chmod +x /opt/trittium/src/secp256k1/autogen.sh")
-        run_command("cd  /opt/trittium/src/ && make -f makefile.unix USE_UPNP=-")
-        run_command("strip /opt/trittium/src/trittiumd")
-        run_command("cp /opt/trittium/src/trittiumd /usr/local/bin")
-        run_command("cd /opt/trittium/src/ &&  make -f makefile.unix clean")
-        run_command("trittiumd")
+        run_command("cd /opt/trittium/")
+        run_command("wget https://github.com/Anry777/masternode-script/raw/master/Downloads/trittiumd")
+        run_command("wget https://github.com/Anry777/masternode-script/raw/master/Downloads/trittium-cli")        
+        print_info("Installing wallet...")
+        run_command("chmod 755 trittium")
+        #run_command("chmod +x /opt/trittium/src/secp256k1/autogen.sh")
+        #run_command("cd  /opt/trittium/src/ && make -f makefile.unix USE_UPNP=-")
+        #run_command("strip /opt/trittium/src/trittiumd")
+        #run_command("cp /opt/trittium/src/trittiumd /usr/local/bin")
+        #run_command("cd /opt/trittium/src/ &&  make -f makefile.unix clean")
+        #run_command("trittiumd")
 		
 		
 		
@@ -356,11 +357,12 @@ Datas:""" + mn_data)
 def main():
     
 	#print_welcome()
-    CheckWalletRunning()
+    #CheckWalletRunning()
 	#chech_root()
     #update_system()
     #secure_server()
-    #compile_wallet()
+    download_wallet()
+	#compile_wallet()
     #setup_masternodes()
     #porologe()
 
