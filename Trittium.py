@@ -76,7 +76,7 @@ def run_command(command):
 	
 
 def CheckWalletRunning():
-
+    import requests
    # bitmonerod is running on the localhost and port of 30001
     url = "http://localhost:30001/json_rpc"
 
@@ -129,8 +129,7 @@ def update_system():
     # special install for grub
     #run_command('sudo DEBIAN_FRONTEND=noninteractive apt-get -y -o DPkg::options::="--force-confdef" -o DPkg::options::="--force-confold"  install grub-pc')
     run_command("apt-get upgrade -y")
-    import requests
-
+    
 def chech_root():
     print_info("Check root privileges")
     user = os.getuid()
@@ -205,7 +204,9 @@ def download_wallet():
         #run_command("strip /opt/trittium/src/trittiumd")
         os.system("cp trittiumd /usr/local/bin")
         os.system("cp trittium-cli /usr/local/bin")
-        #run_command("cd /opt/trittium/src/ &&  make -f makefile.unix clean")
+        os.system("rm trittiumd")
+        os.system("rmcp trittium-cli")
+		#run_command("cd /opt/trittium/src/ &&  make -f makefile.unix clean")
         os.system("trittiumd")
 		
 		
@@ -363,7 +364,7 @@ def main():
 	#print_welcome()
     #CheckWalletRunning()
 	#chech_root()
-    update_system()
+    #update_system()
     #secure_server()
     download_wallet()
 	#compile_wallet()
