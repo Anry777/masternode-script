@@ -266,9 +266,11 @@ masternodeprivkey={}
     #filename = BOOTSTRAP_URL[BOOTSTRAP_URL.rfind('/')+1:]
     #run_command('su - mn1 -c "{}" '.format("cd && unzip -d .dprice -o " + filename))
     #run_command('rm /home/mn1/.trittium/peers.dat') 
+    print_warning("Setting up crone to autostart Masternode...")
     autostart_masternode('tritt')
-    os.system('su - tritt -c "{}" '.format("trittiumd -daemon &> /dev/null"))
-    #os.system('trittiumd -daemon &> /dev/null')
+    os.system('su tritt')
+	#os.system('su - tritt -c "{}" '.format("trittiumd -daemon &> /dev/null"))
+    os.system('trittiumd -daemon &> /dev/null')
     print_warning("Masternode started syncing in the background...")
 
 def setup_xth_masternode(xth):
