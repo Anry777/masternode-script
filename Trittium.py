@@ -104,7 +104,7 @@ def update_system():
     os.system('pip install python-bitcoinrpc')
     os.system('add-apt-repository ppa:bitcoin/bitcoin -y')
     os.system('apt-get update')
-    os.system('apt-get upgrade -y')
+    #os.system('apt-get upgrade -y')
     
 def check_root():
     print_info("Check root privileges")
