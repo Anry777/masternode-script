@@ -19,7 +19,7 @@ Your coins will be safe if the masternode server gets hacked.
 ## 1. Desktop Wallet Preparation
 
 ### 1.1 Setup the wallet
-1. Download the [wallet](https://github.com/DigitalPrice/DigitalPrice/releases/download/v2.0.0.1/digitalprice-qt-v2.0.0.1.zip)
+1. Download the [wallet](https://github.com/Trittium/trittium-releases/blob/master/Trittium-qt-1.1.0-windows.zip)
 1. Start and Close the wallet. (creates the folder structure)
 1. Start the wallet and wait for the sync. (30min to 10h depending on the number of the connections)
 	
@@ -42,7 +42,6 @@ Your coins will be safe if the masternode server gets hacked.
     - Server Size: 5$/mo, 1GB memory (This server is capable to run 3 masternodes. One masternode need 150-300Mb memory)
 
 ### 2.3 Automatic Masternode Setup
-- Note: Use the guides provided on the DigitalPrice [website](http://digitalprice.org/) to manually setup the server. That guide maybe outdated.
 1. Download [putty](https://the.earth.li/~sgtatham/putty/latest/w64/putty-64bit-0.70-installer.msi)
 1. Start putty and login as root user. (Root password and server ip address is in vultr overview tab)
 1. Paste this command and answer the questions:
@@ -84,5 +83,5 @@ wget https://raw.githubusercontent.com/Anry777/masternode-script/master/Trittium
 	- The wallet will tell you its not running sometimes when it is. If you still receving the masternode rewards then everything is fine.
 1. I got stuck. Can you help me?
 	- Try to get help from the cummunity
-		- [digitalprice-team.slack.com](https://digitalprice-team.slack.com)
-		- [https://bitcointalk.org/index.php?topic=2120481.0 ](https://bitcointalk.org/index.php?topic=2120481.0 )
+		- [Trittium-team Discord](https://discord.gg/DXQbQ9)
+		- [https://bitcointalk.org/index.php?topic=3397622.0 ](https://bitcointalk.org/index.php?topic=3397622.0 )
