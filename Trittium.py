@@ -82,8 +82,12 @@ def CheckWalletSync():
     # rpc_user and rpc_password are set in the bitcoin.conf file
     rpc_connection = AuthServiceProxy("http://%s:%s@127.0.0.1:30002"%('rrrrrrrrr','ttttttttttttt'))
     IsSynced = rpc_connection.mnsync('status')["IsBlockchainSynced"]
-    While not IsSynced:
+    while not IsSynced:
         print(IsSynced)	
+        IsSynced = rpc_connection.mnsync('status')["IsBlockchainSynced"]
+        BlockCount = rpc_connection.getinfo()["blocks"]
+        print_info("Current block height in wallet is {} .".format(BlockCount))
+		os.system('clear')
 	print("Blockchain was downloaded, wallet is synced...")
     #rpc_username
     #rpc_password
@@ -111,7 +115,7 @@ def print_welcome():
 def update_system():
     print_info("Updating the system...")
     os.system('pip install requests')
-    os.system('pip install --upgrade pip'
+    os.system('pip install --upgrade pip')
     os.system('pip install python-bitcoinrpc')
     os.system('add-apt-repository ppa:bitcoin/bitcoin -y')
     run_command("apt-get update")
@@ -349,7 +353,7 @@ Datas:""" + mn_data)
 def main():
     
 	#print_welcome()
-    CheckWalletRunning()
+    CheckWalletSync()
 	#chech_root()
     #update_system()
     #secure_server()
