@@ -80,6 +80,7 @@ def run_command(command):
 	
 
 def check_wallet_sync():
+    print_info(rpc_username)
     rpc_connection = AuthServiceProxy("http://%s:%s@127.0.0.1:30002"%(rpc_username, rpc_password))
     IsSynced = rpc_connection.mnsync('status')["IsBlockchainSynced"]
     while not IsSynced:
