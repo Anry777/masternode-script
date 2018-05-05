@@ -268,7 +268,7 @@ masternodeprivkey={}
 
     #run_command('rm /home/mn1/.dprice/peers.dat') 
     autostart_masternode('tritt')
-    os.system('su - mn1 -c "{}" '.format('trittiumd -daemon &> /dev/null'))
+    os.system('su - tritt -c "{}" '.format('trittiumd -daemon &> /dev/null'))
     print_warning("Masternode started syncing in the background...")
 
 def setup_xth_masternode(xth):
