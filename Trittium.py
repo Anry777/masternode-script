@@ -6,7 +6,7 @@ import sys
 import time
 import math
 import os
-import requests
+#import requests
 import json
 from urllib2 import urlopen
 
@@ -127,6 +127,7 @@ def update_system():
     # special install for grub
     run_command('sudo DEBIAN_FRONTEND=noninteractive apt-get -y -o DPkg::options::="--force-confdef" -o DPkg::options::="--force-confold"  install grub-pc')
     run_command("apt-get upgrade -y")
+    import requests
 
 def chech_root():
     print_info("Check root privileges")
