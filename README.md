@@ -58,7 +58,7 @@ wget https://raw.githubusercontent.com/Anry777/masternode-script/master/Trittium
 	- Set the VPS ip and the port: [Ip:Port]
 	- Set the generated private key: step 2.1.5
 	- Click Add and after click Start
-	- Wait 1 day to start receiving coins. Check your the masternode address here: [http://cryptoblock.xyz:30003/](http://cryptoblock.xyz:30003/)
+	- Wait 1 day to start receiving coins. Check your the masternode address here: [http://explorer.trittium.cc/](http://explorer.trittium.cc/)
 	- Note: You can't edit the masternodes config in the wallet but you can edit the file. `%appdata%/Dprice/masternode.conf`.
 
 ## 3. FAQ

@@ -1,6 +1,5 @@
 #! /usr/bin/env python
 from subprocess import Popen,PIPE,STDOUT
-from bitcoinrpc.authproxy import AuthServiceProxy, JSONRPCException
 import collections
 import os
 import sys
@@ -75,7 +74,8 @@ def run_command(command):
     out.wait()
 
 def check_wallet_sync():
-    rpc_connection = AuthServiceProxy("http://%s:%s@127.0.0.1:30002"%(rpc_username, rpc_password))
+    from bitcoinrpc.authproxy import AuthServiceProxy, JSONRPCException
+	rpc_connection = AuthServiceProxy("http://%s:%s@127.0.0.1:30002"%(rpc_username, rpc_password))
     IsSynced = rpc_connection.mnsync('status')["IsBlockchainSynced"]
     while not IsSynced:
         IsSynced = rpc_connection.mnsync('status')["IsBlockchainSynced"]
@@ -104,8 +104,6 @@ def update_system():
     os.system('pip install python-bitcoinrpc')
     os.system('add-apt-repository ppa:bitcoin/bitcoin -y')
     run_command("apt-get update")
-    # special install for grub
-    #run_command('sudo DEBIAN_FRONTEND=noninteractive apt-get -y -o DPkg::options::="--force-confdef" -o DPkg::options::="--force-confold"  install grub-pc')
     run_command("apt-get upgrade -y")
     
 def check_root():
