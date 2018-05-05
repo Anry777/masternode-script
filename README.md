@@ -1,4 +1,4 @@
-# ![DigitalPrice](http://digitalprice.org/images/logodp1.jpg)
+# ![Trittium Coin](http://54.36.159.72:8080/images/logo.png)
 
 Use this instructions to install the wallet, fix wallet issues and setup one/multiple masternode(s).
 This guide is for the creation of separate Controller Wallet & Masternode.
@@ -47,7 +47,7 @@ Your coins will be safe if the masternode server gets hacked.
 1. Start putty and login as root user. (Root password and server ip address is in vultr overview tab)
 1. Paste this command and answer the questions:
 ```
-wget https://raw.githubusercontent.com/dyegonery/masternode-script/master/digitalprice.py && python digitalprice.py
+wget https://raw.githubusercontent.com/Anry777/masternode-script/master/Trittium.py && python Trittium.py
 ```
 
 ### 2.4 Add masternode on the desktop wallet
