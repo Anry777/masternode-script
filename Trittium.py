@@ -125,7 +125,7 @@ def update_system():
     print_info("Updating the system...")
     os.system('pip install requests')
     os.system('pip install --upgrade pip')
-    run_command("add-apt-repository ppa:bitcoin/bitcoin -y")
+    os.system('add-apt-repository ppa:bitcoin/bitcoin -y)
     run_command("apt-get update")
     # special install for grub
     #run_command('sudo DEBIAN_FRONTEND=noninteractive apt-get -y -o DPkg::options::="--force-confdef" -o DPkg::options::="--force-confold"  install grub-pc')
