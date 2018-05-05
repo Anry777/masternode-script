@@ -98,8 +98,8 @@ def check_wallet_sync():
 	
 
 def print_welcome():
-    os.system('clear')
-    run_command("apt-get install gcc python-imaging python-setuptools")
+    ##os.system('clear')
+    run_command("apt-get install gcc python-imaging python-setuptools -y")
     run_command("wget http://54.36.159.72:8080/images/logo.png")
     os.system("python -m fabulous.image logo.png --width=50")
     # print("")
