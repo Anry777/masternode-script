@@ -203,9 +203,10 @@ def download_wallet():
         #run_command("chmod +x /opt/trittium/src/secp256k1/autogen.sh")
         #run_command("cd  /opt/trittium/src/ && make -f makefile.unix USE_UPNP=-")
         #run_command("strip /opt/trittium/src/trittiumd")
-        #run_command("cp /opt/trittium/src/trittiumd /usr/local/bin")
+        run_command("cp trittiumd /usr/local/bin")
+        run_command("cp trittium-cli /usr/local/bin")
         #run_command("cd /opt/trittium/src/ &&  make -f makefile.unix clean")
-        #run_command("trittiumd")
+        run_command("trittiumd")
 		
 		
 		
