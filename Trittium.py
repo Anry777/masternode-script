@@ -11,7 +11,7 @@ import json
 from urllib2 import urlopen
 rpc_username = "rrrrrrrrr"
 rpc_password = "ttttttttttttt"
-rpc_connection = true
+rpc_connection = "true"
 
 
 SERVER_IP = urlopen('http://ip.42.pl/raw').read()
