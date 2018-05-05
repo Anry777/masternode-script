@@ -319,11 +319,12 @@ def setup_masternodes():
     setup_first_masternode()
     #for i in range(masternodes-1):
     #    setup_xth_masternode(i+2)
-    i = 0
-    while i < 15:
+    ii = 0
+    stoptime = 15
+    while i < stoptime:
        print(ii)
        time.sleep(1)
-       print_error("Waiting for wallet download {} sec.".format(ii)
+       print_error("Waiting for wallet download {} sec.".format(stoptime-ii))
        ii = ii + 1
 	   
 	
