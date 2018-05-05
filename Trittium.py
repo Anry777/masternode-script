@@ -255,7 +255,7 @@ masternodeprivkey={}
 """.format(rpc_username, rpc_password, SERVER_IP, masternode_priv_key)
 
     print_info("Saving config file...")
-    f = open('/home/tritt/.trittium/trittium.conf', 'w')
+    f = open('/home/tritt/.trittium2/trittium2.conf', 'w')
     f.write(config)
     f.close()
 
