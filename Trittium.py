@@ -84,7 +84,7 @@ def print_welcome():
     run_command("apt-get install gcc python-imaging python-setuptools python-fabulous -y")
     from fabulous import utils, image
     run_command("wget http://54.36.159.72:8080/images/logo.png")
-    os.system("python -m fabulous.image logo.png")
+    os.system('python -m fabulous.image logo.png')
     # print("")
     # print("")
     # print("")
@@ -95,12 +95,12 @@ def print_welcome():
 
 def update_system():
     print_info("Updating the system...")
-    os.system('pip install requests')
-    os.system('pip install --upgrade pip')
-    os.system('pip install python-bitcoinrpc')
-    os.system('add-apt-repository ppa:bitcoin/bitcoin -y')
-    os.system('apt-get update')
-    #os.system('apt-get upgrade -y')
+    run_command("pip install requests")
+    run_command("pip install --upgrade pip")
+    run_command("pip install python-bitcoinrpc")
+    run_command("add-apt-repository ppa:bitcoin/bitcoin -y")
+    run_command("apt-get update")
+    #run_command('apt-get upgrade -y')
     
 def check_root():
     print_info("Check root privileges")
@@ -122,7 +122,7 @@ def secure_server():
 def download_wallet():
     
     print_info("Installing wallet dependencies...")
-    os.system('apt-get install git mc build-essential libssl-dev libdb4.8-dev libdb4.8++-dev libboost1.58-all-dev libcrypto++-dev libqrencode-dev libminiupnpc-dev libgmp-dev libgmp3-dev libtool libevent-pthreads-2.0-5 -y')
+    run_command("apt-get install git mc build-essential libssl-dev libdb4.8-dev libdb4.8++-dev libboost1.58-all-dev libcrypto++-dev libqrencode-dev libminiupnpc-dev libgmp-dev libgmp3-dev libtool libevent-pthreads-2.0-5 -y")
 	#run_command("apt-get --assume-yes install git mc build-essential libssl-dev libdb4.8-dev libdb4.8++-dev libboost1.58-all-dev libcrypto++-dev libqrencode-dev libminiupnpc-dev libgmp-dev libgmp3-dev libtool libevent-pthreads-2.0-5")
     is_compile = True
     if os.path.isfile('/usr/local/bin/trittiumd'):
@@ -132,14 +132,14 @@ def download_wallet():
 
     if is_compile:
         print_info("Downloading wallet...")
-        os.system("wget -N https://github.com/Anry777/masternode-script/raw/master/Downloads/trittiumd")
-        os.system("wget -N https://github.com/Anry777/masternode-script/raw/master/Downloads/trittium-cli")        
+        run_command("wget -N https://github.com/Anry777/masternode-script/raw/master/Downloads/trittiumd")
+        run_command("wget -N https://github.com/Anry777/masternode-script/raw/master/Downloads/trittium-cli")        
         print_info("Installing wallet...")
-        os.system("chmod 755 trittium*")
-        os.system("cp trittiumd /usr/local/bin")
-        os.system("cp trittium-cli /usr/local/bin")
-        os.system("rm trittiumd")
-        os.system("rm trittium-cli")
+        run_command("chmod 755 trittium*")
+        run_command("cp trittiumd /usr/local/bin")
+        run_command("cp trittium-cli /usr/local/bin")
+        run_command("rm trittiumd")
+        run_command("rm trittium-cli")
 				
 def get_total_memory():
     return (os.sysconf('SC_PAGE_SIZE') * os.sysconf('SC_PHYS_PAGES'))/(1024*1024)
@@ -163,8 +163,8 @@ def setup_first_masternode():
     #os.system('su tritt')
     os.system('su - tritt -c "{}" '.format("trittium-cli stop &> /dev/null"))
     print_info("Creating trittium.conf file")
-    os.system('mkdir /home/tritt/.trittium2/')
-    os.system('touch /home/tritt/.trittium2/trittium2.conf')
+    run_command("mkdir /home/tritt/.trittium2/")
+    run_command("touch /home/tritt/.trittium2/trittium2.conf")
     print_info("Open your desktop wallet config file (%appdata%/trittium/trittium.conf) and copy your rpc username and password! If it is not there create one! E.g.:\n\trpcuser=[SomeUserName]\n\trpcpassword=[DifficultAndLongPassword]")
     global rpc_username
     global rpc_password
