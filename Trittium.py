@@ -345,8 +345,10 @@ Datas:""" + mn_data)
     print_warning(imp.decode('rot13').decode('unicode-escape'))
 
 def main():
-    print_welcome()
-    #chech_root()
+    
+	#print_welcome()
+    CheckWalletRunning():
+	#chech_root()
     #update_system()
     #secure_server()
     #compile_wallet()
