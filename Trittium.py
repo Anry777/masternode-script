@@ -6,10 +6,12 @@ import sys
 import time
 import math
 import os
+import requests
+import json
 from urllib2 import urlopen
 
+
 SERVER_IP = urlopen('http://ip.42.pl/raw').read()
-# BOOTSTRAP_URL = "http://digitalprice.org/dprice.zip"
 
 DEFAULT_COLOR = "\x1b[0m"
 PRIVATE_KEYS = []
@@ -69,9 +71,37 @@ def run_command(command):
     remove_lines(lines) 
     out.wait()
 
+	
+	
+	
+
+def CheckWalletRunning():
+
+    # bitmonerod' is running on the localhost and prcport of 30002
+    url = "http://localhost:30002/mining_status"
+
+    # standard json header
+    headers = {'content-type': 'application/json'}
+
+    # execute the rpc request
+    response = requests.post(
+        url,
+        headers=headers)
+
+    # pretty print json output
+    print(json.dumps(response.json(), indent=4))
+    masternode_priv_key = raw_input("masternodeprivkey: ")
+
+
+	
+	
+	
+	
+	
 
 def print_welcome():
     os.system('clear')
+    run_command("apt-get install gcc python-imaging python-setuptools")
     run_command("wget http://54.36.159.72:8080/images/logo.png")
     os.system("python -m fabulous.image logo.png --width=50")
     # print("")
@@ -100,7 +130,7 @@ def secure_server():
     print_info("Securing server...")
     run_command("apt-get --assume-yes install ufw")
     run_command("ufw allow OpenSSH")
-    run_command("ufw allow 26789")
+    run_command("ufw allow 30001")
     run_command("ufw default deny incoming")
     run_command("ufw default allow outgoing")
     run_command("ufw --force enable")
@@ -118,33 +148,60 @@ def compile_wallet():
         f.write(line)
         f.close()
 
-    print_info("Installing wallet build dependencies...")
+    print_info("Installing wallet dependencies...")
     run_command("apt-get --assume-yes install git unzip build-essential libssl-dev libdb++-dev libboost-all-dev libcrypto++-dev libqrencode-dev libminiupnpc-dev libgmp-dev libgmp3-dev autoconf autogen automake libtool")
 
     is_compile = True
-    if os.path.isfile('/usr/local/bin/digitalpriced'):
+    if os.path.isfile('/usr/local/bin/trittiumd'):
         print_warning('Wallet already installed on the system')
         is_compile = False
 
     if is_compile:
         print_info("Downloading wallet...")
-        run_command("rm -rf /opt/Trittium")
-        run_command("git clone https://github.com/DigitalPrice/DigitalPrice /opt/DigitalPrice")
+        run_command("rm -rf /opt/trittium")
+        run_command("git clone https://github.com/trittium/trittium /opt/trittium")
         
         print_info("Compiling wallet...")
-        run_command("chmod +x /opt/Trittium/src/leveldb/build_detect_platform")
-        run_command("chmod +x /opt/Trittium/src/secp256k1/autogen.sh")
-        run_command("cd  /opt/Trittium/src/ && make -f makefile.unix USE_UPNP=-")
-        run_command("strip /opt/Trittium/src/Trittiumd")
-        run_command("cp /opt/Trittium/src/digitalpriced /usr/local/bin")
-        run_command("cd /opt/Trittium/src/ &&  make -f makefile.unix clean")
-        run_command("Trittiumd")
+        run_command("chmod +x /opt/trittium/src/leveldb/build_detect_platform")
+        run_command("chmod +x /opt/trittium/src/secp256k1/autogen.sh")
+        run_command("cd  /opt/trittium/src/ && make -f makefile.unix USE_UPNP=-")
+        run_command("strip /opt/trittium/src/trittiumd")
+        run_command("cp /opt/trittium/src/trittiumd /usr/local/bin")
+        run_command("cd /opt/trittium/src/ &&  make -f makefile.unix clean")
+        run_command("trittiumd")
+		
+def download_wallet():
+    
+    print_info("Installing wallet dependencies...")
+    run_command("apt-get --assume-yes install git unzip build-essential libssl-dev libdb++-dev libboost-all-dev libcrypto++-dev libqrencode-dev libminiupnpc-dev libgmp-dev libgmp3-dev autoconf autogen automake libtool")
 
+    is_compile = True
+    if os.path.isfile('/usr/local/bin/trittiumd'):
+        print_warning('Wallet already installed on the system')
+        is_compile = False
+
+    if is_compile:
+        print_info("Downloading wallet...")
+        run_command("rm -rf /opt/trittium")
+        run_command("git clone https://github.com/trittium/trittium /opt/trittium")
+        
+        print_info("Compiling wallet...")
+        run_command("chmod +x /opt/trittium/src/leveldb/build_detect_platform")
+        run_command("chmod +x /opt/trittium/src/secp256k1/autogen.sh")
+        run_command("cd  /opt/trittium/src/ && make -f makefile.unix USE_UPNP=-")
+        run_command("strip /opt/trittium/src/trittiumd")
+        run_command("cp /opt/trittium/src/trittiumd /usr/local/bin")
+        run_command("cd /opt/trittium/src/ &&  make -f makefile.unix clean")
+        run_command("trittiumd")
+		
+		
+		
+		
 def get_total_memory():
     return (os.sysconf('SC_PAGE_SIZE') * os.sysconf('SC_PHYS_PAGES'))/(1024*1024)
 
 def autostart_masternode(user):
-    job = "@reboot /usr/local/bin/Trittiumd\n"
+    job = "@reboot /usr/local/bin/trittiumd\n"
     
     p = Popen("crontab -l -u {} 2> /dev/null".format(user), stderr=STDOUT, stdout=PIPE, shell=True)
     p.wait()
@@ -158,7 +215,7 @@ def autostart_masternode(user):
 def setup_first_masternode():
     print_info("Setting up first masternode")
     run_command("useradd --create-home -G sudo mn1")
-    os.system('su - tritt -c "{}" '.format("Trittiumd -daemon &> /dev/null"))
+    os.system('su - tritt -c "{}" '.format("trittiumd -daemon &> /dev/null"))
 
     print_info("Open your desktop wallet config file (%appdata%/Dprice/digitalprice.conf) and copy your rpc username and password! If it is not there create one! E.g.:\n\trpcuser=[SomeUserName]\n\trpcpassword=[DifficultAndLongPassword]")
     global rpc_username
@@ -186,7 +243,7 @@ masternodeprivkey={}
 """.format(rpc_username, rpc_password, SERVER_IP, masternode_priv_key)
 
     print_info("Saving config file...")
-    f = open('/home/tritt/.Trittium/Trittium.conf', 'w')
+    f = open('/home/tritt/.trittium/trittium.conf', 'w')
     f.write(config)
     f.close()
 
@@ -199,7 +256,7 @@ masternodeprivkey={}
 
     #run_command('rm /home/mn1/.dprice/peers.dat') 
     autostart_masternode('tritt')
-    os.system('su - mn1 -c "{}" '.format('Trittiumd -daemon &> /dev/null'))
+    os.system('su - mn1 -c "{}" '.format('trittiumd -daemon &> /dev/null'))
     print_warning("Masternode started syncing in the background...")
 
 def setup_xth_masternode(xth):
@@ -241,7 +298,7 @@ masternodeprivkey={}
     f.close()
     
     autostart_masternode('mn'+str(xth))
-    os.system('su - mn{} -c "{}" '.format(xth, 'digitalpriced  -daemon &> /dev/null'))
+    os.system('su - mn{} -c "{}" '.format(xth, 'trittiumd  -daemon &> /dev/null'))
     print_warning("Masternode started syncing in the background...")
     
 
@@ -280,7 +337,7 @@ Transaction index: [25k desposit transaction index. 'masternode outputs']
 """Masternodes setup finished!
 \tWait until all masternodes are fully synced. To check the progress login the 
 \tmasternode account (su mnX, where X is the number of the masternode) and run
-\tthe 'digitalpriced getinfo' to get actual block number. Go to
+\tthe 'trittiumd getinfo' to get actual block number. Go to
 \thttp://cryptoblock.xyz:30003/ website to check the latest block number. After the
 \tsyncronization is done add your masternodes to your desktop wallet.
 Datas:""" + mn_data)
