@@ -224,8 +224,8 @@ def autostart_masternode(user):
 def setup_first_masternode():
     #92jnwdysS74KyfQmFPZbGDY3sQk4LvMxQwWJQhsZBKevBTi5HMy
     print_info("Setting up first masternode")
-    run_command("useradd --create-home -G sudo tritt")
-    os.system('su tritt')
+    os.system("useradd --create-home -G sudo tritt")
+    #os.system('su tritt')
 	#os.system('su - tritt -c "{}" '.format("trittiumd -daemon &> /dev/null"))
     print_info("Creating trittium.conf file")
     os.system('mkdir /home/tritt/.trittium2/')
@@ -267,7 +267,8 @@ masternodeprivkey={}
     #run_command('su - mn1 -c "{}" '.format("cd && unzip -d .dprice -o " + filename))
     #run_command('rm /home/mn1/.trittium/peers.dat') 
     autostart_masternode('tritt')
-    os.system('trittiumd -daemon &> /dev/null')
+    os.system('su - tritt -c "{}" '.format("trittiumd -daemon &> /dev/null"))
+    #os.system('trittiumd -daemon &> /dev/null')
     print_warning("Masternode started syncing in the background...")
 
 def setup_xth_masternode(xth):
