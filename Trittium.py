@@ -77,15 +77,24 @@ def run_command(command):
 
 def CheckWalletRunning():
 
-    # bitmonerod' is running on the localhost and prcport of 30002
-    url = "http://localhost:30002/mining_status"
+   # bitmonerod is running on the localhost and port of 30001
+    url = "http://localhost:30001/json_rpc"
 
     # standard json header
     headers = {'content-type': 'application/json'}
 
+    # bitmonerod' procedure/method to call
+    rpc_input = {
+           "method": "get_info"
+    }
+
+    # add standard rpc values
+    rpc_input.update({"jsonrpc": "2.0", "id": "0"})
+
     # execute the rpc request
     response = requests.post(
         url,
+        data=json.dumps(rpc_input),
         headers=headers)
 
     # pretty print json output
