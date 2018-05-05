@@ -9,6 +9,8 @@ import os
 #import requests
 import json
 from urllib2 import urlopen
+rpc_username = "rrrrrrrrr"
+rpc_password = "ttttttttttttt"
 
 
 SERVER_IP = urlopen('http://ip.42.pl/raw').read()
@@ -80,17 +82,15 @@ def CheckWalletSync():
     import pprint
 
     # rpc_user and rpc_password are set in the bitcoin.conf file
-    rpc_connection = AuthServiceProxy("http://%s:%s@127.0.0.1:30002"%('rrrrrrrrr','ttttttttttttt'))
+    rpc_connection = AuthServiceProxy("http://%s:%s@127.0.0.1:30002"%(rpc_username, rpc_password))
     IsSynced = rpc_connection.mnsync('status')["IsBlockchainSynced"]
     while not IsSynced:
-        print(IsSynced)	
         IsSynced = rpc_connection.mnsync('status')["IsBlockchainSynced"]
         BlockCount = rpc_connection.getinfo()["blocks"]
-        print_info("Current block height in wallet is {} .".format(BlockCount))
+        print_warning("Current block height in wallet is {} . Please, wait for full sync message".format(BlockCount))
         os.system('clear')
-	print("Blockchain was downloaded, wallet is synced...")
-    #rpc_username
-    #rpc_password
+	print_info("Blockchain was downloaded, wallet is synced...")
+    
 
 
 	
