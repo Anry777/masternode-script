@@ -103,8 +103,8 @@ def update_system():
     os.system('pip install --upgrade pip')
     os.system('pip install python-bitcoinrpc')
     os.system('add-apt-repository ppa:bitcoin/bitcoin -y')
-    run_command("apt-get update")
-    run_command("apt-get upgrade -y")
+    os.system('apt-get update')
+    os.system('apt-get upgrade -y')
     
 def check_root():
     print_info("Check root privileges")
@@ -220,8 +220,6 @@ port=30001
 server=1
 listen=1
 daemon=1
-logtimestamps=1
-mnconflock=1
 masternode=1
 masternodeaddr={}:30001
 masternodeprivkey={}
@@ -231,19 +229,10 @@ masternodeprivkey={}
     f = open('/home/tritt/.trittium2/trittium2.conf', 'w')
     f.write(config)
     f.close()
-
-    #print_info("Downloading blockchain bootstrap file...")
-    #run_command('su - mn1 -c "{}" '.format("cd && wget --continue " + BOOTSTRAP_URL))
-    #print_info("Unzipping the file...")
-    #filename = BOOTSTRAP_URL[BOOTSTRAP_URL.rfind('/')+1:]
-    #run_command('su - mn1 -c "{}" '.format("cd && unzip -d .dprice -o " + filename))
-    #run_command('rm /home/mn1/.trittium/peers.dat') 
     print_warning("Setting up crone to autostart Masternode...")
     autostart_masternode('tritt')
     os.system('chown -R tritt:tritt /home/tritt')
     os.system('su - tritt -c trittiumd')
-	#os.system('su - tritt -c "{}" '.format("trittiumd -daemon &> /dev/null"))
-    #os.system('trittiumd -daemon &> /dev/null')
     print_warning("Masternode started syncing...")
 
 def setup_masternodes():
