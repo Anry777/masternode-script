@@ -99,7 +99,7 @@ def check_wallet_sync():
 
 def print_welcome():
     ##os.system('clear')
-    run_command("apt-get install gcc python-imaging python-setuptools -y")
+    run_command("apt-get install gcc python-imaging python-setuptools python-fabulous -y")
     run_command("wget http://54.36.159.72:8080/images/logo.png")
     os.system("python -m fabulous.image logo.png --width=50")
     # print("")
@@ -320,9 +320,8 @@ def setup_masternodes():
     #for i in range(masternodes-1):
     #    setup_xth_masternode(i+2)
     ii = 0
-    stoptime = 15
-    while i < stoptime:
-       print(ii)
+    stoptime = 10
+    while ii < stoptime:
        time.sleep(1)
        print_error("Waiting for wallet download {} sec.".format(stoptime-ii))
        ii = ii + 1
@@ -354,15 +353,15 @@ You MN Data:""" + mn_data)
 
 def main():
     
-    #print_welcome()
-    check_root()
-    update_system()
-    secure_server()
-    download_wallet()
+    print_welcome()
+    #check_root()
+    #update_system()
+    #secure_server()
+    #download_wallet()
 #compile_wallet()
-    setup_masternodes()
-    check_wallet_sync()
-    porologe()
+    #setup_masternodes()
+    #check_wallet_sync()
+    #porologe()
 
 if __name__ == "__main__":
     main()
