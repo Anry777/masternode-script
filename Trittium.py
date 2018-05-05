@@ -160,7 +160,7 @@ def compile_wallet():
 def download_wallet():
     
     print_info("Installing wallet dependencies...")
-    os.system('apt-get install git build-essential libssl-dev libdb4.8-dev libdb4.8++-dev libboost1.58-all-dev libcrypto++-dev libqrencode-dev libminiupnpc-dev libgmp-dev libgmp3-dev libtool libevent-pthreads-2.0-5 -y')
+    os.system('apt-get install git mc build-essential libssl-dev libdb4.8-dev libdb4.8++-dev libboost1.58-all-dev libcrypto++-dev libqrencode-dev libminiupnpc-dev libgmp-dev libgmp3-dev libtool libevent-pthreads-2.0-5 -y')
 	#run_command("apt-get --assume-yes install git build-essential libssl-dev libdb4.8-dev libdb4.8++-dev libboost1.58-all-dev libcrypto++-dev libqrencode-dev libminiupnpc-dev libgmp-dev libgmp3-dev libtool libevent-pthreads-2.0-5")
     is_compile = True
     if os.path.isfile('/usr/local/bin/trittiumd'):
