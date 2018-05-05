@@ -87,7 +87,7 @@ def CheckWalletSync():
         IsSynced = rpc_connection.mnsync('status')["IsBlockchainSynced"]
         BlockCount = rpc_connection.getinfo()["blocks"]
         print_info("Current block height in wallet is {} .".format(BlockCount))
-		os.system('clear')
+        os.system('clear')
 	print("Blockchain was downloaded, wallet is synced...")
     #rpc_username
     #rpc_password
