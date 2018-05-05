@@ -11,7 +11,7 @@ import json
 from urllib2 import urlopen
 rpc_username = "rrrrrrrrr"
 rpc_password = "ttttttttttttt"
-rpc_connection = "true"
+
 
 
 SERVER_IP = urlopen('http://ip.42.pl/raw').read()
@@ -76,7 +76,7 @@ def run_command(command):
 
 	
 def ConnectRPC():
-    rpc_connection = AuthServiceProxy("http://%s:%s@127.0.0.1:30002"%(rpc_username, rpc_password))
+    
     
 	
 	
@@ -84,6 +84,7 @@ def ConnectRPC():
 	
 
 def CheckWalletSync():
+    rpc_connection = AuthServiceProxy("http://%s:%s@127.0.0.1:30002"%(rpc_username, rpc_password))
     IsSynced = rpc_connection.mnsync('status')["IsBlockchainSynced"]
     while not IsSynced:
         IsSynced = rpc_connection.mnsync('status')["IsBlockchainSynced"]
