@@ -80,8 +80,10 @@ def run_command(command):
 	
 
 def check_wallet_sync():
-    print_info(rpc_username)
     rpc_connection = AuthServiceProxy("http://%s:%s@127.0.0.1:30002"%(rpc_username, rpc_password))
+    TestConnect = rpc_connection.getinfo()
+    #["Code"]
+    print_warning(TestConnect)
     IsSynced = rpc_connection.mnsync('status')["IsBlockchainSynced"]
     while not IsSynced:
         IsSynced = rpc_connection.mnsync('status')["IsBlockchainSynced"]
@@ -324,7 +326,7 @@ def setup_masternodes():
 def porologe():
 
     mn_base_data = """
-Alias: Masternode{}
+Alias: MN{}
 IP: {}
 Private key: {}
 Transaction ID: [25k desposit transaction id. 'masternode outputs']
@@ -334,7 +336,7 @@ Transaction index: [25k desposit transaction index. 'masternode outputs']
 
     mn_data = ""
     for idx, val in enumerate(PRIVATE_KEYS):
-        mn_data += mn_base_data.format(idx+1, SERVER_IP + ":" + str(26789 + idx), val)
+        mn_data += mn_base_data.format(idx+1, SERVER_IP + ":" + str(30001), val)
 
     
     print('')
@@ -347,15 +349,15 @@ You MN Data:""" + mn_data)
 
 def main():
     
-    print_welcome()
-    check_root()
-    update_system()
-    secure_server()
-    download_wallet()
+    #print_welcome()
+    #check_root()
+    #update_system()
+    #secure_server()
+    #download_wallet()
 	#compile_wallet()
-    setup_masternodes()
+    #setup_masternodes()
     check_wallet_sync()
-    porologe()
+    #porologe()
 
 if __name__ == "__main__":
     main()
