@@ -1,16 +1,17 @@
 #! /usr/bin/env python
 from subprocess import Popen,PIPE,STDOUT
+from bitcoinrpc.authproxy import AuthServiceProxy, JSONRPCException
 import collections
 import os
 import sys
 import time
 import math
 import os
-#import requests
 import json
 from urllib2 import urlopen
 rpc_username = "rrrrrrrrr"
 rpc_password = "ttttttttttttt"
+rpc_connection = true
 
 
 SERVER_IP = urlopen('http://ip.42.pl/raw').read()
@@ -74,22 +75,22 @@ def run_command(command):
     out.wait()
 
 	
+def ConnectRPC():
+    rpc_connection = AuthServiceProxy("http://%s:%s@127.0.0.1:30002"%(rpc_username, rpc_password))
+    
+	
+	
 	
 	
 
 def CheckWalletSync():
-    from bitcoinrpc.authproxy import AuthServiceProxy, JSONRPCException
-    import pprint
-
-    # rpc_user and rpc_password are set in the bitcoin.conf file
-    rpc_connection = AuthServiceProxy("http://%s:%s@127.0.0.1:30002"%(rpc_username, rpc_password))
     IsSynced = rpc_connection.mnsync('status')["IsBlockchainSynced"]
     while not IsSynced:
         IsSynced = rpc_connection.mnsync('status')["IsBlockchainSynced"]
         BlockCount = rpc_connection.getinfo()["blocks"]
         print_warning("Current block height in wallet is {} . Please, wait for full sync message".format(BlockCount))
         os.system('clear')
-	print_info("Blockchain was downloaded, wallet is synced...")
+    print_info("Blockchain was downloaded, wallet is synced...")
     
 
 
@@ -353,6 +354,7 @@ Datas:""" + mn_data)
 def main():
     
 	#print_welcome()
+    ConnectRPC()
     CheckWalletSync()
 	#chech_root()
     #update_system()
