@@ -75,15 +75,11 @@ def run_command(command):
     out.wait()
 
 	
-def ConnectRPC():
-    
-    
-	
-	
+
 	
 	
 
-def CheckWalletSync():
+def check_wallet_sync():
     rpc_connection = AuthServiceProxy("http://%s:%s@127.0.0.1:30002"%(rpc_username, rpc_password))
     IsSynced = rpc_connection.mnsync('status')["IsBlockchainSynced"]
     while not IsSynced:
@@ -343,27 +339,22 @@ Transaction index: [25k desposit transaction index. 'masternode outputs']
     print('')
     print_info(
 """Masternodes setup finished!
-\tWait until all masternodes are fully synced. To check the progress login the 
-\tmasternode account (su mnX, where X is the number of the masternode) and run
-\tthe 'trittiumd getinfo' to get actual block number. Go to
-\thttp://cryptoblock.xyz:30003/ website to check the latest block number. After the
-\tsyncronization is done add your masternodes to your desktop wallet.
+\t Add your masternodes to your desktop wallet.
 Datas:""" + mn_data)
 
     print_warning(imp.decode('rot13').decode('unicode-escape'))
 
 def main():
     
-	#print_welcome()
-    ConnectRPC()
-    CheckWalletSync()
-	#chech_root()
-    #update_system()
-    #secure_server()
-    #download_wallet()
+	print_welcome()
+    chech_root()
+    update_system()
+    secure_server()
+    download_wallet()
 	#compile_wallet()
-    #setup_masternodes()
-    #porologe()
+    setup_masternodes()
+    check_wallet_sync()
+    porologe()
 
 if __name__ == "__main__":
     main()
