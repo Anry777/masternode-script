@@ -217,7 +217,7 @@ def setup_first_masternode():
     print_info("Setting up first masternode")
     os.system("useradd --create-home -G sudo tritt")
     #os.system('su tritt')
-    #os.system('su - tritt -c "{}" '.format("trittiumd -daemon &> /dev/null"))
+    os.system('su - tritt -c "{}" '.format("trittium-cli stop &> /dev/null"))
     print_info("Creating trittium.conf file")
     os.system('mkdir /home/tritt/.trittium2/')
     os.system('touch /home/tritt/.trittium2/trittium2.conf')
