@@ -205,7 +205,7 @@ def download_wallet():
         os.system("cp trittiumd /usr/local/bin")
         os.system("cp trittium-cli /usr/local/bin")
         os.system("rm trittiumd")
-        os.system("rmcp trittium-cli")
+        os.system("rm trittium-cli")
 		#run_command("cd /opt/trittium/src/ &&  make -f makefile.unix clean")
         os.system("trittiumd")
 		
