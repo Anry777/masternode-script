@@ -203,7 +203,7 @@ def setup_first_masternode():
     print_info("Creating trittium.conf file")
     os.system('mkdir /home/tritt/.trittium2/')
     os.system('touch /home/tritt/.trittium2/trittium2.conf')
-    print_info("Open your desktop wallet config file (%appdata%/Dprice/digitalprice.conf) and copy your rpc username and password! If it is not there create one! E.g.:\n\trpcuser=[SomeUserName]\n\trpcpassword=[DifficultAndLongPassword]")
+    print_info("Open your desktop wallet config file (%appdata%/trittium/trittium.conf) and copy your rpc username and password! If it is not there create one! E.g.:\n\trpcuser=[SomeUserName]\n\trpcpassword=[DifficultAndLongPassword]")
     global rpc_username
     global rpc_password
     rpc_username = raw_input("rpcuser: ")
