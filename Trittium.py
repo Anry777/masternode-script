@@ -8,10 +8,6 @@ import math
 import os
 import json
 from urllib2 import urlopen
-rpc_username = "rrrrrrrrr"
-rpc_password = "ttttttttttttt"
-
-
 
 SERVER_IP = urlopen('http://ip.42.pl/raw').read()
 
