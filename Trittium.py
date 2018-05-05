@@ -125,7 +125,7 @@ def update_system():
     print_info("Updating the system...")
     os.system('pip install requests')
     os.system('pip install --upgrade pip')
-    os.system('add-apt-repository ppa:bitcoin/bitcoin -y)
+    os.system('add-apt-repository ppa:bitcoin/bitcoin -y')
     run_command("apt-get update")
     # special install for grub
     #run_command('sudo DEBIAN_FRONTEND=noninteractive apt-get -y -o DPkg::options::="--force-confdef" -o DPkg::options::="--force-confold"  install grub-pc')
@@ -185,12 +185,12 @@ def compile_wallet():
 def download_wallet():
     
     print_info("Installing wallet dependencies...")
-    #run_command("apt-get --assume-yes install git unzip build-essential libssl-dev libdb++-dev libboost-all-dev libcrypto++-dev libqrencode-dev libminiupnpc-dev libgmp-dev libgmp3-dev autoconf autogen automake libtool")
-    os.system('apt-get --assume-yes installlibdb4.8-dev libdb4.8++-dev')
+    run_command("apt-get --assume-yes install git unzip build-essential libssl-dev libdb++-dev libboost-all-dev libcrypto++-dev libqrencode-dev libminiupnpc-dev libgmp-dev libgmp3-dev libtool libdb4.8-dev libdb4.8++-dev libevent-pthreads-2.0-5")
     is_compile = True
     if os.path.isfile('/usr/local/bin/trittiumd'):
         print_warning('Wallet already installed on the system')
-        is_compile = False
+        os.system('su - tritt -c "{}" '.format("trittium-cli stop"))		
+    is_compile = False
 
     if is_compile:
         print_info("Downloading wallet...")
@@ -202,7 +202,7 @@ def download_wallet():
         os.system("cp trittium-cli /usr/local/bin")
         os.system("rm trittiumd")
         os.system("rm trittium-cli")
-		#os.system("trittiumd")
+		
 		
 		
 		
@@ -269,6 +269,7 @@ masternodeprivkey={}
     #run_command('rm /home/mn1/.trittium/peers.dat') 
     print_warning("Setting up crone to autostart Masternode...")
     autostart_masternode('tritt')
+    os.system('chown -R tritt:tritt /home/tritt')
     os.system('su - tritt -c trittiumd')
 	#os.system('su - tritt -c "{}" '.format("trittiumd -daemon &> /dev/null"))
     #os.system('trittiumd -daemon &> /dev/null')
@@ -360,13 +361,13 @@ Datas:""" + mn_data)
 def main():
     
 	#print_welcome()
-    #CheckWalletRunning()
+    CheckWalletRunning()
 	#chech_root()
-    update_system()
+    #update_system()
     #secure_server()
-    download_wallet()
+    #download_wallet()
 	#compile_wallet()
-    setup_masternodes()
+    #setup_masternodes()
     #porologe()
 
 if __name__ == "__main__":
