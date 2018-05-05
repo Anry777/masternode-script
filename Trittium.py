@@ -74,11 +74,6 @@ def run_command(command):
     remove_lines(lines) 
     out.wait()
 
-	
-
-	
-	
-
 def check_wallet_sync():
     rpc_connection = AuthServiceProxy("http://%s:%s@127.0.0.1:30002"%(rpc_username, rpc_password))
     IsSynced = rpc_connection.mnsync('status')["IsBlockchainSynced"]
@@ -88,20 +83,12 @@ def check_wallet_sync():
         print_warning("Current block height in wallet is {} . Please, wait for full sync message".format(BlockCount))
         os.system('clear')
     print_info("Blockchain was downloaded, wallet is synced...")
-    
-
-
-	
-	
-	
-	
-	
-
 def print_welcome():
     ##os.system('clear')
     run_command("apt-get install gcc python-imaging python-setuptools python-fabulous -y")
+    from fabulous import utils, image
     run_command("wget http://54.36.159.72:8080/images/logo.png")
-    os.system("python -m fabulous.image logo.png --width=50")
+    os.system("python -m fabulous.image logo.png")
     # print("")
     # print("")
     # print("")
@@ -192,11 +179,7 @@ def download_wallet():
         os.system("cp trittium-cli /usr/local/bin")
         os.system("rm trittiumd")
         os.system("rm trittium-cli")
-		
-		
-		
-		
-		
+				
 def get_total_memory():
     return (os.sysconf('SC_PAGE_SIZE') * os.sysconf('SC_PHYS_PAGES'))/(1024*1024)
 
@@ -226,7 +209,6 @@ def setup_first_masternode():
     global rpc_password
     rpc_username = raw_input("rpcuser: ")
     rpc_password = raw_input("rpcpassword: ")
-
     print_info("Open your wallet console (Help => Debug window => Console) and create a new masternode private key: masternode genkey")
     masternode_priv_key = raw_input("masternodeprivkey: ")
     PRIVATE_KEYS.append(masternode_priv_key)
@@ -264,49 +246,6 @@ masternodeprivkey={}
 	#os.system('su - tritt -c "{}" '.format("trittiumd -daemon &> /dev/null"))
     #os.system('trittiumd -daemon &> /dev/null')
     print_warning("Masternode started syncing...")
-
-def setup_xth_masternode(xth):
-    print_info("Setting up {}th masternode".format(xth))
-    run_command("useradd --create-home -G sudo mn{}".format(xth))
-    run_command("rm -rf /home/mn{}/.dprice/".format(xth))
-
-    print_info('Copying wallet data from the first masternode...')
-    run_command("cp -rf /home/mn1/.dprice /home/mn{}/".format(xth))
-    run_command("sudo chown -R mn{}:mn{} /home/mn{}/.dprice".format(xth, xth, xth))
-    run_command("rm /home/mn{}/.dprice/peers.dat &> /dev/null".format(xth))
-    run_command("rm /home/mn{}/.dprice/wallet.dat &> /dev/null".format(xth))
-
-    print_info("Open your wallet console (Help => Debug window => Console) and create a new masternode private key: masternode genkey")
-    masternode_priv_key = raw_input("masternodeprivkey: ")
-    PRIVATE_KEYS.append(masternode_priv_key)
-
-    BASE_RPC_PORT = 26788
-    BASE_PORT = 26789
-    
-    config = """rpcuser={}
-rpcpassword={}
-rpcallowip=127.0.0.1
-rpcport={}
-port={}
-server=1
-listen=1
-daemon=1
-logtimestamps=1
-mnconflock=1
-masternode=1
-masternodeaddr={}:{}
-masternodeprivkey={}
-""".format(rpc_username, rpc_password, BASE_RPC_PORT + xth - 1, BASE_PORT + xth - 1, SERVER_IP, BASE_PORT + xth - 1, masternode_priv_key)
-    
-    print_info("Saving config file...")
-    f = open('/home/mn{}/.dprice/digitalprice.conf'.format(xth), 'w')
-    f.write(config)
-    f.close()
-    
-    autostart_masternode('mn'+str(xth))
-    os.system('su - mn{} -c "{}" '.format(xth, 'trittiumd  -daemon &> /dev/null'))
-    print_warning("Masternode started syncing in the background...")
-    
 
 def setup_masternodes():
     memory = get_total_memory()
@@ -354,14 +293,14 @@ You MN Data:""" + mn_data)
 def main():
     
     print_welcome()
-    #check_root()
-    #update_system()
-    #secure_server()
-    #download_wallet()
+    check_root()
+    update_system()
+    secure_server()
+    download_wallet()
 #compile_wallet()
-    #setup_masternodes()
-    #check_wallet_sync()
-    #porologe()
+    setup_masternodes()
+    check_wallet_sync()
+    porologe()
 
 if __name__ == "__main__":
     main()
