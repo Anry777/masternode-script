@@ -347,7 +347,7 @@ Datas:""" + mn_data)
 def main():
     
 	#print_welcome()
-    CheckWalletRunning():
+    CheckWalletRunning()
 	#chech_root()
     #update_system()
     #secure_server()
