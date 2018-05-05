@@ -123,7 +123,7 @@ def print_welcome():
 
 def update_system():
     print_info("Updating the system...")
-    os.system("pip install requests")
+    os.system('pip install requests')
     run_command("apt-get update")
     # special install for grub
     #run_command('sudo DEBIAN_FRONTEND=noninteractive apt-get -y -o DPkg::options::="--force-confdef" -o DPkg::options::="--force-confold"  install grub-pc')
