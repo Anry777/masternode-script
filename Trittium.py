@@ -224,10 +224,11 @@ def autostart_masternode(user):
 def setup_first_masternode():
     #92jnwdysS74KyfQmFPZbGDY3sQk4LvMxQwWJQhsZBKevBTi5HMy
     print_info("Setting up first masternode")
-    run_command("useradd --create-home -G sudo mn1")
+    run_command("useradd --create-home -G sudo tritt")
     #os.system('su - tritt -c "{}" '.format("trittiumd -daemon &> /dev/null"))
     print_info("Creating trittium.conf file")
-    os.system('touch /home/tritt/.trittium/trittium2.conf')
+    os.system('mkdir /home/tritt/.trittium2/')
+    os.system('touch /home/tritt/.trittium2/trittium2.conf')
     print_info("Open your desktop wallet config file (%appdata%/Dprice/digitalprice.conf) and copy your rpc username and password! If it is not there create one! E.g.:\n\trpcuser=[SomeUserName]\n\trpcpassword=[DifficultAndLongPassword]")
     global rpc_username
     global rpc_password
