@@ -1,6 +1,6 @@
 # ![Trittium Coin](http://54.36.159.72:8080/images/logo.png)
 
-Use this instructions to install the wallet, fix wallet issues and setup one/multiple masternode(s).
+Use this instructions to install the wallet,  and setup masternode (HOT-COLD walet)(s).
 This guide is for the creation of separate Controller Wallet & Masternode.
 For Security reasons, THIS IS THE PREFERRED way to run a Masternode. By running your Masternode in this way you are protecting
 your coins in your private wallet, and are not required to have your local wallet running after the Masternode has been started successfully.
@@ -19,23 +19,24 @@ Your coins will be safe if the masternode server gets hacked.
 ## 1. Desktop Wallet Preparation
 
 ### 1.1 Setup the wallet
-1. Download the [wallet](https://github.com/Trittium/trittium-releases/blob/master/Trittium-qt-1.1.0-windows.zip)
-1. Start and Close the wallet. (creates the folder structure)
+1. Download the [wallet](https://github.com/Trittium/Trittium-wallets/raw/master/trittium-qt-windows-2.0.0-release.zip)
 1. Start the wallet and wait for the sync. (30min to 10h depending on the number of the connections)
 	
 ## 2. Masternode Setup
 
 ### 2.1 Send the coins to your wallet
-1. Open Console (Help => Debug window => Console)
-1. Create a new address. `getnewaddress Masternode1`
-1. Send exactly 25000 coins to this address. (One transaction, pay attention to the fee)
-1. Wait for the conformation.
-1. Save the transaction id, index `masternode outputs`, and generate and save a new masternode private key `masternode genkey`.
-1. You can optionaly encrypt the wallet (Settings => Encypt wallet) for security reasons. Do not forget the password or you lose the coins that you have.
-1. Backup `%appdata%/Dprice/wallet.dat` file. This contains your coins. DO NOT LOSE IT!
+1. Open Console (Tools => Debug console)
+1. Create a new address. `getnewaddress MN1`
+1. Send exactly 50000 coins to this address. (One transaction, pay attention to the fee)
+1. Wait for the 1 conformation.
+1. Generate a new masternode private key `masternode genkey`.
+1. Take txID of collateral transaction  `masternode outputs`. 
+1. You can optionaly encrypt the wallet (Settings => Encypt wallet) for security reasons. !!!!! Do not forget the password or you lose the coins that you have.!!!!!
+1. Backup `wallet.dat` file. This contains information about your coins. DO NOT LOSE IT!
 
 ### 2.2 VPS setup
-1. Register on [Vultr](https://www.vultr.com). (or [DigitalOcean](https://digitalocean.com)) (do not forget verify your e-mail)
+1. Register on [Aruba] https://www.arubacloud.com/vps/virtual-private-server-range.aspx and setup small VPS server (for 1 eur/month) thays enough for MN setup.
+Also you can use [Vultr](https://www.vultr.com) or [DigitalOcean](https://digitalocean.com (do not forget verify your e-mail)
 1. Send some money (10$ is enough for two months) to your account to deploy a server. (1 server cost 5$/mo, you can pay with bitcoin)
 1. Deploy a new server.
     - Server Type: Ubuntu 16.04
