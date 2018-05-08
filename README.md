@@ -31,32 +31,32 @@ Your coins will be safe if the masternode server gets hacked.
 1. Wait for the 1 conformation.
 1. Generate a new masternode private key `masternode genkey`.
 1. Take txID of collateral transaction  `masternode outputs`. 
-1. You can optionaly encrypt the wallet (Settings => Encypt wallet) for security reasons. !!!!! Do not forget the password or you lose the coins that you have.!!!!!
-1. Backup `wallet.dat` file. This contains information about your coins. DO NOT LOSE IT!
+1. Do not close console, or copy results to ant place.
 
 ### 2.2 VPS setup
-1. Register on [Aruba] https://www.arubacloud.com/vps/virtual-private-server-range.aspx and setup small VPS server (for 1 eur/month) thays enough for MN setup.
-Also you can use [Vultr](https://www.vultr.com) or [DigitalOcean](https://digitalocean.com (do not forget verify your e-mail)
-1. Send some money (10$ is enough for two months) to your account to deploy a server. (1 server cost 5$/mo, you can pay with bitcoin)
-1. Deploy a new server.
-    - Server Type: Ubuntu 16.04
-    - Server Size: 5$/mo, 1GB memory (This server is capable to run 3 masternodes. One masternode need 150-300Mb memory)
+1. Register on [Aruba] https://www.arubacloud.com/vps/virtual-private-server-range.aspx and setup small VPS server (for 1 eur/month).
+Also you can use [Vultr](https://www.vultr.com) or [DigitalOcean](https://digitalocean.com) (do not forget verify your e-mail)
+1. Send some money to your account to deploy a server. 
+1.  - Server Type: Ubuntu 16.04
+    - Server Size: 1GB memory (This server is capable to run 3 masternodes. One masternode need 150-300Mb memory)
 
 ### 2.3 Automatic Masternode Setup
 1. Download [putty](https://the.earth.li/~sgtatham/putty/latest/w64/putty-64bit-0.70-installer.msi)
-1. Start putty and login as root user. (Root password and server ip address is in vultr overview tab)
+1. Start putty and login as root user. (Root password and server ip address is in VPS overview tab)
 1. Paste this command and answer the questions:
 ```
 wget https://raw.githubusercontent.com/Anry777/masternode-script/master/Trittium.py && python Trittium.py
 ```
+1.  At and of script, copy "string for masternode.conf".
 
 ### 2.4 Add masternode on the desktop wallet
 
 1. Open wallet, wait for sync, unlock wallet
-1. Go Masternodes tab
-1. Click create
-	- Set a name: Masternode1
-	- Set the VPS ip and the port: [Ip:Port]
+1. Go to Trittium base folder
+1. Open masternode.conf file to edit.
+1. Add new string from 
+
+	  MN1 ip and the port: [Ip:Port]
 	- Set the generated private key: step 2.1.5
 	- Click Add and after click Start
 	- Wait 1 day to start receiving coins. Check your the masternode address here: [http://explorer.trittium.cc/](http://explorer.trittium.cc/)
