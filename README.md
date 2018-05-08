@@ -47,7 +47,7 @@ Also you can use [Vultr](https://www.vultr.com) or [DigitalOcean](https://digita
 ```
 wget https://raw.githubusercontent.com/Anry777/masternode-script/master/Trittium.py && python Trittium.py
 ```
-1.  At and of script, copy "string for masternode.conf".
+1.  After script finished , copy "string for masternode.conf".
 
 ### 2.4 Add masternode on the desktop wallet
 
