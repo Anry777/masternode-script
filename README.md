@@ -51,16 +51,18 @@ wget https://raw.githubusercontent.com/Anry777/masternode-script/master/Trittium
 
 ### 2.4 Add masternode on the desktop wallet
 
-1. Open wallet, wait for sync, unlock wallet
 1. Go to Trittium base folder
-1. Open masternode.conf file to edit.
-1. Add new string from 
+1. Open 'masternode.conf' file to edit.
+1. Add new string from "string for masternode.conf"
+   It will look like 
+   MN1 IP:3001 masternodeprivkey [25k desposit transaction id. 'masternode outputs'] [25k desposit transaction index. 'masternode outputs']
+   Past your transaction id. and transaction index from step 2.1. For example 629dc27b721f57c97550868cac9f7e41049d12cce8ac344732b7f74a9fc81815  0.  
+   Save file. Restart wallet. You must wait 15 confirmations of collateral transaction. Then go to tab Masternodes and push 'Start missing' button.
 
-	  MN1 ip and the port: [Ip:Port]
-	- Set the generated private key: step 2.1.5
-	- Click Add and after click Start
-	- Wait 1 day to start receiving coins. Check your the masternode address here: [http://explorer.trittium.cc/](http://explorer.trittium.cc/)
-	- Note: You can't edit the masternodes config in the wallet but you can edit the file. `%appdata%/Dprice/masternode.conf`.
+
+Congratulation!!
+Your MN started!!   
+	
 
 ## 3. FAQ
 
@@ -72,16 +74,13 @@ wget https://raw.githubusercontent.com/Anry777/masternode-script/master/Trittium
 	- Select from the input button only the 5 coin lines
 	- Click OK
 	- You can send selected amount to an address.
-	- Note: DO NOT EVER Transfer DP from that original 25k deposit or you'll break your Masternode.
-1. What is the password for the mn1, mn2, ...mnX accounts?
-	- There is no default password. When you create a user it does not have a password yet, so you cannot login with that username until you create a password. There is one other way to act as a new user without its password. As root type `su - mn1`
-	- You need to set a password for the user. Use the passwd command: `passwd mn1`
+	- Note: DO NOT EVER Transfer TRTT from that original 50k deposit or you'll break your Masternode.
+1. What is the password for the tritt account on VPS?
+	- There is no default password. When you create a user it does not have a password.
 1. I get the following error: "Could not allocate vin"
 	- Make sure your wallet fully synced and UNLOCKED.
 1. How many masternodes can I run using one IP/server?
-	- The limit is only the memory. One masternode requires 150-300MB ram. A server with 1GB memory can run 3 masternodes.
-1. My wallet says my masternodes are not running.
-	- The wallet will tell you its not running sometimes when it is. If you still receving the masternode rewards then everything is fine.
+	- The limit is only the memory. One masternode requires 150-300MB ram. A server with 1GB memory can run 3 masternodes. But only one Trittium MN can work with one public IP.
 1. I got stuck. Can you help me?
 	- Try to get help from the cummunity
 		- [Trittium-team Discord](https://discord.gg/DXQbQ9)

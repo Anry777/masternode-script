@@ -209,7 +209,7 @@ def setup_masternodes():
     #for i in range(masternodes-1):
     #    setup_xth_masternode(i+2)
     ii = 0
-    stoptime = 10
+    stoptime = 20
     while ii < stoptime:
        time.sleep(1)
        print_error("Waiting for wallet download {} sec.".format(stoptime-ii))
@@ -219,11 +219,8 @@ def setup_masternodes():
 def porologe():
 
     mn_base_data = """
-Alias: MN{}
-IP: {}
-Private key: {}
-Transaction ID: [25k desposit transaction id. 'masternode outputs']
-Transaction index: [25k desposit transaction index. 'masternode outputs']
+MN{} {}:3001 {} [25k desposit transaction id. 'masternode outputs'] [25k desposit transaction index. 'masternode outputs']
+
 --------------------------------------------------
 """
 
@@ -236,7 +233,7 @@ Transaction index: [25k desposit transaction index. 'masternode outputs']
     print_info(
 """Masternodes setup finished!
 \t Add your masternodes to your desktop wallet.
-You MN Data:""" + mn_data)
+Your string for masternode.conf:""" + mn_data)
 
     
 
